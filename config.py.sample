@@ -1,0 +1,10 @@
+DINNER_OPTIONS = [
+    'chicken',
+    'fish',
+    'pancakes',
+    'pizza',
+    'spaghetti',
+]
+
+WEATHER_API_KEY = ''
+WEATHER_CITY = 'Toronto,CA'
