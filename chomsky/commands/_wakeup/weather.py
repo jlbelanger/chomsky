@@ -4,9 +4,6 @@ from chomsky.command import Command
 from chomsky.number_to_text import NumberToText
 
 class Weather(Command):
-    id = 'weather'
-    commands = None
-
     def run(self):
         url = 'https://api.openweathermap.org/data/2.5/weather?q=' + config.WEATHER_CITY + '&units=metric&appid=' + config.WEATHER_API_KEY
         r = get(url)

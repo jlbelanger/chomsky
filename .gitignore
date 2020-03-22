@@ -3,3 +3,7 @@ config.py
 .vscode/settings.json
 sounds/commands
 output.wav
+command-model
+command-model.arff
+command-modelMEANS
+TODO.md

@@ -1,6 +1,5 @@
-import sys
 from chomsky.command import Command
 
-class Quit(Command):
+class Nevermind(Command):
     def run(self):
-        sys.exit()
+        print('OK')

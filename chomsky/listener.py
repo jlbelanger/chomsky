@@ -1,7 +1,6 @@
 # Inspired by https://github.com/jeysonmc/python-google-speech-scripts/blob/master/stt_google.py
 import audioop
 import math
-import time
 import wave
 import pyaudio
 from pyAudioAnalysis import audioTrainTest
@@ -16,22 +15,17 @@ class Listener():
     NUM_PRE_FRAMES = 10
     NUM_POST_FRAMES = 20
 
-    def __init__(self, should_classify=True):
+    def __init__(self, should_classify=True, i=None):
         self.p = None
         self.should_classify = should_classify
+        self.i = i
 
     def listen(self):
         # return input('> ')
         self.p = pyaudio.PyAudio()
         stream = self.p.open(format=Listener.FORMAT, channels=Listener.CHANNELS, rate=Listener.RATE, input=True, frames_per_buffer=Listener.CHUNK)
 
-        if not self.should_classify:
-            print('Listening...')
-
         self.loop(stream)
-
-        if not self.should_classify:
-            print('Done.')
 
         stream.close()
         self.p.terminate()
@@ -84,7 +78,7 @@ class Listener():
         if self.should_classify:
             filename = Listener.OUTPUT_FILENAME
         else:
-            filename = 'output-' + str(time.time()) + '.wav'
+            filename = str(self.i) + '.wav'
 
         wf = wave.open(filename, 'wb')
         wf.setnchannels(Listener.CHANNELS)

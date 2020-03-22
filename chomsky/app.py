@@ -1,48 +1,64 @@
-from chomsky.commands.wakeup import Wakeup
-from chomsky.commands.quit import Quit
+import glob
+import sys
 from chomsky.audio import Audio
 from chomsky.listener import Listener
-from chomsky.matcher import Matcher
 from chomsky.trainer import Trainer
 
 class App():
     def __init__(self):
-        self.default_commands = [Wakeup()]
-        self.available_commands = [Wakeup()]
+        self.path = []
+        self.available_commands = ['quit', 'wakeup']
 
     def start(self):
-        Trainer.train()
+        if Trainer.should_train():
+            Trainer.train()
+
+        self.print_commands()
+
         while True:
-            self.run()
+            self.loop()
 
-    def run(self):
-        # Print the list of available commands. (Quit is always available.)
-        q = Quit()
-        command_list = ', '.join(map(lambda x: x.pattern(), [q] + self.available_commands))
-        print("\nAvailable commands: " + str(command_list))
-
+    def loop(self):
         # Wait for user input.
-        a = Listener().listen()
+        word = Listener().listen()
 
-        # Test for quit command.
-        if Matcher.match(a, q.pattern()):
-            q.run()
-            return
-
-        # Test for all other available commands.
-        command_found = False
+        # Test for all available commands.
         for command in self.available_commands:
-            if Matcher.match(a, command.pattern()):
-                command_found = True
-                command.run()
+            if word == command.split('/')[-1]:
+                self.run_command(command)
+                self.load_commands(command)
+                self.print_commands()
+                return
 
-                # Load new commands.
-                self.available_commands = command.available_commands()
-                if self.available_commands is None:
-                    self.available_commands = self.default_commands
-
-                break
-
-        if not command_found:
-            Audio.play('sounds/error.wav')
+        # If there is a path, then we are awake. We only want to play an error message if we are awake.
+        if self.path:
             print('Command not found')
+            Audio.play('sounds/error.wav')
+        else:
+            print('...')
+
+    def run_command(self, command):
+        command = ('chomsky/commands/' + command).replace('/', '.')
+        class_name = command.split('.')[-1].capitalize()
+        __import__(command)
+        f = sys.modules[command]
+        some_class = getattr(f, class_name)
+        command = some_class()
+        command.run()
+
+    def load_commands(self, command):
+        self.path.append('_' + command)
+        available_commands = glob.glob('chomsky/commands/' + '/'.join(self.path) + '/*')
+        available_commands = list(map(lambda x: x.replace('chomsky/commands/', '').replace('.py', ''), available_commands))
+        available_commands = filter(lambda x: x.split('/')[-1][0] != '_', available_commands)
+        available_commands = sorted(available_commands)
+
+        if not available_commands:
+            self.path = []
+            self.available_commands = ['quit', 'wakeup']
+        else:
+            self.available_commands = ['quit'] + available_commands
+
+    def print_commands(self):
+        c = list(map(lambda x: x.split('/')[-1], self.available_commands))
+        print("\nAvailable commands: " + ', '.join(c))

@@ -22,7 +22,7 @@ python main.py
 
 ``` bash
 pipenv shell
-python main.py listen
+python main.py record
 ```
 
 ### Train
@@ -43,3 +43,11 @@ pylint *.py chomsky/*.py chomsky/commands/*.py
 ``` bash
 python -m unittest chomsky/test/*.py
 ```
+
+## Adding a command
+
+Create a new file at `chomsky/commands/_wakeup/x.py` (where `x` is the name of the command).
+
+Run `record` to record trigger files. Place the files in `sounds/commands/x`.
+
+Run `train` to re-train the model.
