@@ -1,10 +1,12 @@
 from random import choice
 import config
-from .command import Command
+from chomsky.audio import Audio
+from chomsky.command import Command
 
 class Dinner(Command):
-    id = 'd'
+    id = 'dinner'
     commands = None
 
     def run(self):
+        Audio.play('sounds/dinner.wav')
         print(choice(config.DINNER_OPTIONS))

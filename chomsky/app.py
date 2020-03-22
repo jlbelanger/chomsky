@@ -3,6 +3,7 @@ from chomsky.commands.quit import Quit
 from chomsky.audio import Audio
 from chomsky.listener import Listener
 from chomsky.matcher import Matcher
+from chomsky.trainer import Trainer
 
 class App():
     def __init__(self):
@@ -10,17 +11,18 @@ class App():
         self.available_commands = [Wakeup()]
 
     def start(self):
+        Trainer.train()
         while True:
             self.run()
 
     def run(self):
         # Print the list of available commands. (Quit is always available.)
         q = Quit()
-        command_list = ','.join(map(lambda x: x.pattern(), [q] + self.available_commands))
+        command_list = ', '.join(map(lambda x: x.pattern(), [q] + self.available_commands))
         print("\nAvailable commands: " + str(command_list))
 
         # Wait for user input.
-        a = Listener.listen()
+        a = Listener().listen()
 
         # Test for quit command.
         if Matcher.match(a, q.pattern()):

@@ -1,9 +1,9 @@
 from datetime import datetime
-from .command import Command
-from ..number_to_text import NumberToText
+from chomsky.command import Command
+from chomsky.number_to_text import NumberToText
 
 class Clock(Command):
-    id = 't'
+    id = 'clock'
     commands = None
 
     def run(self):

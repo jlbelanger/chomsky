@@ -1,5 +1,5 @@
 import unittest
-from ..number_to_text import NumberToText
+from chomsky.number_to_text import NumberToText
 
 class TestNumberToText(unittest.TestCase):
     def test_convert(self):

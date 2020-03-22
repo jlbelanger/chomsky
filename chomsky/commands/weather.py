@@ -1,10 +1,10 @@
 from requests import get
 import config
-from .command import Command
-from ..number_to_text import NumberToText
+from chomsky.command import Command
+from chomsky.number_to_text import NumberToText
 
 class Weather(Command):
-    id = 'w'
+    id = 'weather'
     commands = None
 
     def run(self):

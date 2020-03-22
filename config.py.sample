@@ -8,3 +8,7 @@ DINNER_OPTIONS = [
 
 WEATHER_API_KEY = ''
 WEATHER_CITY = 'Toronto,CA'
+
+# svm, knn, extratrees, gradientboosting, randomforest
+CLASSIFIER_TYPE = 'svm'
+MODEL_NAME = 'command-model'

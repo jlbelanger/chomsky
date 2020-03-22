@@ -10,6 +10,13 @@ pylint = "<2.0.0"
 pyaudio = "*"
 pylint = "*"
 requests = "*"
+pyaudioanalysis = "*"
+numpy = "*"
+scipy = "*"
+matplotlib = "*"
+eyed3 = "*"
+pydub = "*"
+sklearn = "*"
 
 [requires]
 python_version = "3.6.10"

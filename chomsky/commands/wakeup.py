@@ -1,14 +1,14 @@
 from chomsky.audio import Audio
+from chomsky.command import Command
+from .alert import Alert
 from .clock import Clock
-from .command import Command
 from .dinner import Dinner
-from .song import Song
 from .weather import Weather
 
 class Wakeup(Command):
-    id = 'w'
-    commands = [Dinner(), Song(), Clock(), Weather()]
+    id = 'wakeup'
+    commands = [Alert(), Dinner(), Clock(), Weather()]
 
     def run(self):
-        Audio.play('sounds/listening.wav')
+        Audio.play('sounds/wakeup.wav')
         print('Awaiting command')
