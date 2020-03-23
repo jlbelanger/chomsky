@@ -4,6 +4,7 @@ config.py
 sounds/commands
 output.wav
 command-model
+command-model-timestamp
 command-model.arff
 command-modelMEANS
 TODO.md

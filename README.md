@@ -49,5 +49,3 @@ python -m unittest chomsky/test/*.py
 Create a new file at `chomsky/commands/_wakeup/x.py` (where `x` is the name of the command).
 
 Run `record` to record trigger files. Place the files in `sounds/commands/x`.
-
-Run `train` to re-train the model.
