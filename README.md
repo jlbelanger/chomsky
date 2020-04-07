@@ -5,7 +5,7 @@
 ### Setup
 
 ``` bash
-cp config.py.sample config.py
+cp config.py.example config.py
 brew install pipenv
 brew install portaudio
 pipenv install
