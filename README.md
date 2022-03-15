@@ -1,6 +1,6 @@
 # Chomsky
 
-## Developing
+## Development
 
 ### Setup
 
@@ -32,19 +32,19 @@ pipenv shell
 python main.py train
 ```
 
-## Linting
+## Lint
 
 ``` bash
 pylint *.py chomsky/*.py chomsky/commands/*.py
 ```
 
-## Testing
+## Test
 
 ``` bash
 python -m unittest chomsky/test/*.py
 ```
 
-## Adding a command
+## Add a command
 
 Create a new file at `chomsky/commands/_wakeup/x.py` (where `x` is the name of the command).
 
